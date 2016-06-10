@@ -5,12 +5,12 @@ import os.path
 
 
 def main(argv):
-    if len(argv) < 1 or len(argv) > 1:
-        print('Requires exactly one argument (filename)')
-        return
-    if not os.path.isfile(argv[0]):
-        print('File not found: ' + argv[0])
-        return
+    if len(argv) < 2 or len(argv) > 2:
+        sys.exit('Requires exactly one argument (filename)')
+    if not argv[1].endswith('.txt'):
+        sys.exit('Must supply plain text file (using .txt extension)')
+    if not os.path.isfile(argv[1]):
+        sys.exit('File not found: ' + argv[1])
     # validate file contains valid puzzle
     # import puzzle as matrix
     # print the puzzle start state
