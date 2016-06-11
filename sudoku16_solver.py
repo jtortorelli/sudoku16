@@ -52,7 +52,7 @@ def main(argv):
         for m in n:
             if m != '-':
                 if m in row:
-                    sys.exit("File does not contain valid puzzle; found duplicate value " + m + " in row " + str(i))
+                    sys.exit("File does not contain valid puzzle; found duplicate value " + m + " in row " + str(i + 1))
                 else:
                     row.add(m)
         rows.append(row)
