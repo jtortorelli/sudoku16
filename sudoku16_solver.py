@@ -27,6 +27,13 @@ def main(argv):
                 master_set.add(n)
     if len(master_set) != 16:
         sys.exit("File does not contain valid puzzle; expected 16 unique symbols, found " + str(len(master_set)) + ": " + ', '.join(sorted(master_set)))
+    matrix = []
+    for line in lines:
+        row = []
+        for n in line:
+            row.append(n)
+        matrix.append(row)
+
     # import puzzle as matrix
     # print the puzzle start state
     # create master set
