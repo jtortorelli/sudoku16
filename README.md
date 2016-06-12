@@ -28,7 +28,7 @@ Using the MRV technique, the program first sorts all the empty spaces by the num
 
 The function calls itself recursively to continue making assignments, sorting the empty spaces by constraints each time. Any time the program reaches a dead end - when a space is encountered for which no assignment is possible - the recursion back tracks to attempt another assignment and continues. This continues until the goal state is reached (all rows, columns and squares completed correctly), or if it can be determined that no solution exists for the given puzzle.
 
-Performance is measured as a function of time (taken in seconds) and in the total number of assignments made during the solution. For comparison's sake, the MRV agent made 141 assignments before arriving at a solution for a hard puzzle (time: < 1 second), whereas the brute force agent made 34.5 million assignments to arrive at the same solution (time: > 5 minutes).
+Performance is measured as a function of time (taken in seconds) and the total number of assignments made during the solution. For comparison's sake, the MRV agent made 141 assignments before arriving at a solution for a hard puzzle (time: < 1 second), whereas the brute force agent made 34.5 million assignments to arrive at the same solution (time: > 5 minutes).
 
 ## Usage
 `python sudoku16_solver.py <path_to_file>.txt`
