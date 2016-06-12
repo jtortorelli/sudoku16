@@ -4,42 +4,61 @@ import sys
 import os.path
 
 
-def get_square_membership(a, b):
-    if 0 <= a <= 3:
-        if 0 <= b <= 3:
+class Space:
+    def __init__(self, row, col):
+        self.row = row
+        self.col = col
+        self.square = get_square_membership(row, col)
+        self.value = '-'
+        self.constraints = set()
+
+    def set_constraints(self, constraints):
+        self.constraints = constraints
+
+    def set_value(self, value):
+        self.value = value
+
+    def __lt__(self, other):
+        if len(self.constraints) < len(other.constraints):
+            return True
+
+
+def get_square_membership(row, col):
+    if 0 <= row <= 3:
+        if 0 <= col <= 3:
             return 0
-        elif 4 <= b <= 7:
+        elif 4 <= col <= 7:
             return 1
-        elif 8 <= b <= 11:
+        elif 8 <= col <= 11:
             return 2
-        elif 12 <= b <= 15:
+        elif 12 <= col <= 15:
             return 3
-    elif 4 <= a <= 7:
-        if 0 <= b <= 3:
+    elif 4 <= row <= 7:
+        if 0 <= col <= 3:
             return 4
-        elif 4 <= b <= 7:
+        elif 4 <= col <= 7:
             return 5
-        elif 8 <= b <= 11:
+        elif 8 <= col <= 11:
             return 6
-        elif 12 <= b <= 15:
+        elif 12 <= col <= 15:
             return 7
-    elif 8 <= a <= 11:
-        if 0 <= b <= 3:
+    elif 8 <= row <= 11:
+        if 0 <= col <= 3:
             return 8
-        elif 4 <= b <= 7:
+        elif 4 <= col <= 7:
             return 9
-        elif 8 <= b <= 11:
+        elif 8 <= col <= 11:
             return 10
-        elif 12 <= b <= 15:
+        elif 12 <= col <= 15:
             return 11
-    elif 12 <= a <= 15:
-        if 0 <= b <= 3:
+    elif 12 <= row <= 15:
+        if 0 <= col <= 3:
             return 12
-        elif 4 <= b <= 7:
+        elif 4 <= col <= 7:
             return 13
-        elif 8 <= b <= 11:
+        elif 8 <= col <= 11:
             return 14
-        elif 12 <= b <= 15:
+        elif 12 <= col <= 15:
             return 15
 
 
@@ -120,6 +139,13 @@ def main(argv):
                     sys.exit('File does not contain valid puzzle; found duplicate value ' + matrix[a][b] + ' in square ' + str(square))
                 else:
                     squares[square].add(matrix[a][b])
+
+    # create empty spaces
+    spaces = []
+    for n in range(16):
+        for m in range(16):
+            if matrix[n][m] == '-':
+                spaces.append(Space(n, m))
 
     # import puzzle as matrix
     # print the puzzle start state
