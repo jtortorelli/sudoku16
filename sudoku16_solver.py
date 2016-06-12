@@ -4,6 +4,45 @@ import sys
 import os.path
 
 
+def get_square_membership(a, b):
+    if 0 <= a <= 3:
+        if 0 <= b <= 3:
+            return 0
+        elif 4 <= b <= 7:
+            return 1
+        elif 8 <= b <= 11:
+            return 2
+        elif 12 <= b <= 15:
+            return 3
+    elif 4 <= a <= 7:
+        if 0 <= b <= 3:
+            return 4
+        elif 4 <= b <= 7:
+            return 5
+        elif 8 <= b <= 11:
+            return 6
+        elif 12 <= b <= 15:
+            return 7
+    elif 8 <= a <= 11:
+        if 0 <= b <= 3:
+            return 8
+        elif 4 <= b <= 7:
+            return 9
+        elif 8 <= b <= 11:
+            return 10
+        elif 12 <= b <= 15:
+            return 11
+    elif 12 <= a <= 15:
+        if 0 <= b <= 3:
+            return 12
+        elif 4 <= b <= 7:
+            return 13
+        elif 8 <= b <= 11:
+            return 14
+        elif 12 <= b <= 15:
+            return 15
+
+
 def main(argv):
     # check correct number of arguments
     if len(argv) < 2 or len(argv) > 2:
@@ -57,6 +96,7 @@ def main(argv):
                     row.add(m)
         rows.append(row)
 
+    # create column sets
     cols = []
     for n in range(16):
         col = set()
@@ -67,6 +107,19 @@ def main(argv):
                 else:
                     col.add(matrix[m][n])
         cols.append(col)
+
+    # create square sets
+    squares = []
+    for n in range(16):
+        squares.append(set())
+    for a in range(16):
+        for b in range(16):
+            if matrix[a][b] != '-':
+                square = get_square_membership(a, b)
+                if matrix[a][b] in squares[square]:
+                    sys.exit('File does not contain valid puzzle; found duplicate value ' + matrix[a][b] + ' in square ' + str(square))
+                else:
+                    squares[square].add(matrix[a][b])
 
     # import puzzle as matrix
     # print the puzzle start state
