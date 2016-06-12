@@ -140,6 +140,11 @@ def main(argv):
                 else:
                     squares[square].add(matrix[a][b])
 
+    # print initial puzzle state
+    print('Initial puzzle')
+    for n in matrix:
+        print(' '.join(n))
+
     # create empty spaces
     spaces = []
     for n in range(16):
@@ -147,11 +152,6 @@ def main(argv):
             if matrix[n][m] == '-':
                 spaces.append(Space(n, m))
 
-    # import puzzle as matrix
-    # print the puzzle start state
-    # create master set
-    # create sets for rows, cols, and squares
-    # create list of empty spaces
     # start tracking time
     # start solving
     pass
