@@ -11,7 +11,7 @@ This is a reimplementation of an AI agent written for my master's circa 2012-201
         - In fact, the final program must be able to solve a Sudoku puzzle irrespective of the symbols used (do not code for a specific character set)
     - Blank spaces in the Sudoku puzzle are represented with a hyphen '-'
 - The first agent will attempt to solve the puzzle using a brute force algorithm that assigns values to each empty space as it traverses the puzzle sequentially
-- The second agent will solve the puzzle using the minimum remaining values (MRV) approach to solve the puzzle
+- The second agent will use the minimum remaining values (MRV) approach to solve the puzzle
 - Submit a paper describing the differences in performance between the two agents
 
 ## Discussion
