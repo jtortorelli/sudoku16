@@ -52,10 +52,21 @@ def main(argv):
         for m in n:
             if m != '-':
                 if m in row:
-                    sys.exit("File does not contain valid puzzle; found duplicate value " + m + " in row " + str(i + 1))
+                    sys.exit('File does not contain valid puzzle; found duplicate value ' + m + ' in row ' + str(i + 1))
                 else:
                     row.add(m)
         rows.append(row)
+
+    cols = []
+    for n in range(16):
+        col = set()
+        for m in range(16):
+            if matrix[m][n] != '-':
+                if matrix[m][n] in col:
+                    sys.exit('File does not contain valid puzzle; found duplicate value ' + matrix[m][n] + ' in column ' + str(n + 1))
+                else:
+                    col.add(matrix[m][n])
+        cols.append(col)
 
     # import puzzle as matrix
     # print the puzzle start state
