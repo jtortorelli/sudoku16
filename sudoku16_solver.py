@@ -2,6 +2,81 @@
 
 import sys
 import os.path
+import time
+
+assignments = 0
+
+
+def increment_assignments():
+    global assignments
+    assignments += 1
+
+
+def get_assignments():
+    return assignments
+
+
+def constraint_sort(spaces, rows, cols, squares, master_set):
+    for space in spaces:
+        constraints = master_set - (rows[space.row] | cols[space.col] | squares[space.square])
+        if constraints:
+            space.set_constraints(constraints)
+        else:
+            return False
+    spaces.sort()
+    return True
+
+
+def goal_state(rows, cols, squares):
+    for row in rows:
+        if len(row) != 16:
+            return False
+    for col in cols:
+        if len(col) != 16:
+            return False
+    for square in squares:
+        if len(square) != 16:
+            return False
+    return True
+
+
+def add_to_sets(space, rows, cols, squares):
+    rows[space.row].add(space.value)
+    cols[space.col].add(space.value)
+    squares[space.square].add(space.value)
+
+
+def remove_from_sets(space, rows, cols, squares):
+    rows[space.row].discard(space.value)
+    cols[space.col].discard(space.value)
+    squares[space.square].discard(space.value)
+
+
+def solve(spaces, rows, cols, squares, master_set):
+    if constraint_sort(spaces, rows, cols, squares, master_set):
+        space = spaces.pop(0)
+        for constraint in space.constraints:
+            space.set_value(constraint)
+            increment_assignments()
+            add_to_sets(space, rows, cols, squares)
+            if goal_state(rows, cols, squares):
+                spaces.insert(0, space)
+                return True
+            else:
+                if spaces:
+                    if solve(spaces, rows, cols, squares, master_set):
+                        spaces.insert(0, space)
+                        return True
+                    else:
+                        remove_from_sets(space, rows, cols, squares)
+                        space.set_value('-')
+                else:
+                    remove_from_sets(space, rows, cols, squares)
+                    space.set_value('-')
+        spaces.insert(0, space)
+        return False
+    else:
+        return False
 
 
 class Space:
@@ -153,8 +228,23 @@ def main(argv):
                 spaces.append(Space(n, m))
 
     # start tracking time
+    initial_time = time.time()
+
     # start solving
-    pass
+    if solve(spaces, rows, cols, squares, master_set):
+        final_time = time.time()
+        total_time = final_time - initial_time
+        print('Solution found!')
+        no_of_assignments = get_assignments()
+        print('Number of assignments: ' + str(no_of_assignments))
+        print('Time to solve: ' + str(total_time) + ' seconds')
+        finished_matrix = matrix
+        for space in spaces:
+            finished_matrix[space.row][space.col] = space.value
+        for n in finished_matrix:
+            print(' '.join(n))
+    else:
+        print('No solution found!')
 
 
 if __name__ == "__main__":
