@@ -22,7 +22,7 @@ This is the second of the two agents, implementing the MRV approach. First it co
 3. A set for each column in the puzzle
 4. A set for each 4 x 4 square in the puzzle
 
-Finally it creates a list of Space objects to represent the empty spaces of the puzzle. Each space is aware of its **constraints**, i.e., the *list of symbols that could possibly occupy that space*, taken from the difference between the master set and sets for the row, column or square that space occupies.
+Finally it creates a list of Space objects to represent the empty spaces of the puzzle. Each space is aware of its **constraints**, i.e., the *list of symbols that could possibly occupy that space*, taken from the difference between the master set and sets for the row, column and square that space occupies. The fewer the constraints on a space, the more likely the program is to make the correct assignment on the first pass through.
 
 Using the MRV technique, the program first sorts all the empty spaces by the number of constraints, from least to greatest. The first space after sorting is considered and an assignment is made. The sets for the row, column and square of the newly assigned space are updated, and will inform the constraints on the remaining spaces.
 
